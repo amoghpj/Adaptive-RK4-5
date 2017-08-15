@@ -1,0 +1,51 @@
+#+AUTHOR: Amogh Jalihal
+#+TITLE: Numerical ODE solvers
+#+OPTIONS: toc:nil
+* Why solvers
+Ordinary differential equations describe the rules for the time evolution of a system. Linear systems can be solved analytically, but as the systems of equations get larger, analytical solutions aren't guaranteed. Rather, numerical integration is used to examine the temporal trajectories of large systems of ODEs.
+
+The basic idea behind numerical methods to solve ODEs are the mean value theorem, and the Taylor series expansion of differential equations. 
+
+* Runge-Kutta solvers
+The Runge-Kutta methods are constructed to include higher order terms of the Taylor series expansion to increase accuracy. The most common Runge-Kutta solver is the Fourth order RK solver which is described as follows:
+
+#+BEGIN_EXPORT latex
+\begin{align*}
+k_1&=f(t,y)\\
+k_2&=f(t+\frac{h}{2},y+\frac{1}{2}k_1h)\\
+k_3&=f(t+\frac{h}{2},y+\frac{1}{2}k_2h)\\
+k_4&=f(t+h,y+k_3h)\\
+y(t+h)&=y+\frac{(k_1+2k_2+2k_3+k_4)}{6}    \\
+\end{align*}
+#+END_EXPORT
+
+#+BEGIN_EXPORT latex
+\begin{tabular}{|c|c|ccccc|c|c|}
+\hline
+$i$ & $a_{i}$ & & & $b_{ij}$  & & & $c_{i}$ & $c_{i}^{*}$ \\
+\hline
+&&&&&&&&
+\\
+1& &  & & & & & $\frac{37}{378}$ & $\frac{2825}{27648}$ \\
+&&&&&&&&
+\\
+2& $\frac{1}{5}$ & $\frac{1}{5}$ & & & & & 0 & 0 \\
+&&&&&&&&
+\\
+3& $\frac{3}{10}$ & $\frac{3}{40}$ & $\frac{9}{40}$ & & & & $\frac{250}{621}$  & $\frac{18575}{48384}$ \\
+&&&&&&&&
+\\
+4& $\frac{3}{5}$ & $\frac{3}{10}$ & $-\frac{9}{10}$ & $-\frac{6}{5}$ & & & $\frac{125}{594}$  & $\frac{13525}{55296}$ \\
+&&&&&&&&
+\\
+5& 1 & $-\frac{11}{54}$ & $\frac{5}{2}$ & $-\frac{70}{27}$ & $\frac{35}{27}$ & & 0 & $\frac{277}{14336}$ \\
+&&&&&&&&
+\\
+6& $\frac{7}{8}$ &$\frac{1631}{55296}$ & $\frac{175}{512}$ & $\frac{575}{13824}$ & $\frac{44275}{110592}$ & $\frac{253}{4096}$ & $\frac{512}{1771}$ & $\frac{1}{4}$\\
+&&&&&&&&
+\\
+\hline
+&$j=$ & 1 & 2 & 3 & 4 & 5 & &\\
+\hline
+\end{tabular}
+#+END_EXPORT
